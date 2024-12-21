@@ -1,25 +1,18 @@
-Illama Garages Creator est un outil puissant pour gérer les garages dans un serveur FiveM sous ESX. Compatible avec Illama Keys Creator, il offre une intégration parfaite pour gérer les véhicules et distribuer les clés automatiquement lors du spawn.
+Un script facile d'utilisation permettant de créer des garages. Fonctionnant sous ESX 1.11.4 (minimum). 
 
-    Interface Intuitive : Interface utilisateur NUI pour configurer et gérer facilement les garages.
-    Gestion des Permissions : Accès limité aux administrateurs pour configurer les garages.
-    Positions Configurables :
-        Définissez la position du garage et du point de spawn.
-        Orientation personnalisée des véhicules lors du spawn.
-    Support des Jobs et Grades :
-        Intégration des jobs et grades directement depuis la base de données.
-        Possibilité de lier des garages à des jobs spécifiques avec des grades définis.
-    Compatibilité avec Illama Keys Creator :
-        Distribution automatique des clés lors du spawn des véhicules depuis le garage.
-    Sauvegarde Sécurisée : Les données des garages sont sauvegardées dans une base de données MySQL.
+Prérequis
+
+- ESX Legacy installé et configuré.
+- MySQL-Async pour la gestion des bases de données.
+- Ox_lib pour les notifications et les interfaces.
 
 Installation
 
-    Téléchargez et placez le script dans votre dossier resources.
-    Ajoutez la ressource à votre fichier server.cfg :
+- Téléchargez le script et placez-le dans votre dossier resources.
+- Ajoutez la ressource à votre fichier server.cfg :
+- ensure illama_billing
 
-ensure illama_garagescreator
-
-Créez la table MySQL nécessaire en exécutant la requête suivante :
+Importez le fichier SQL dans votre base de données :
 
     CREATE TABLE `illama_garages` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,30 +25,16 @@ Créez la table MySQL nécessaire en exécutant la requête suivante :
         `vehicle_colors` JSON DEFAULT NULL
     );
 
-    Redémarrez votre serveur FiveM.
+Utilisation
+Commandes principales :
 
-Commandes
+- Création de garages pour les métiers,
+- Possibilité de choisir la plaque des véhicules,
+- Possibilité de choisir la couleur (primaire et secondaire) des véhicules,
+- Un blip du garage seulement pour les personnes y ayants accès.
 
-    Ouvrir l'interface de configuration :
+Compatiblité
 
-    /garagecreator
-
-    Accessible uniquement pour les administrateurs.
-
-Configuration
-
-    Commandes et paramètres peuvent être ajustés dans config.lua :
-
-    Config = {
-        Command = "garagecreator" -- Commande pour ouvrir l'interface
-    }
-
-Prérequis
-
-    ESX Legacy (ou compatible).
-    MySQL-Async pour la gestion des bases de données.
-    Illama Keys Creator pour une gestion fluide des clés.
-
-Crédits
+- illama_keyscreator, don des clés à la sortie du véhicule, suppresssion de celle-ci au rangement du véhicule.
 
 Développé par Illama.
