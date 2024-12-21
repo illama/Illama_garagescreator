@@ -3,7 +3,7 @@ game 'gta5'
 lua54 'yes'  -- Ajout de cette ligne pour activer Lua 5.4
 
 name 'illama_garagescreator'
-description 'Système simple pour créer des garages pour la version 1.1X.X de ESX.'
+description 'Illama Garages Creator est un outil puissant pour gérer les garages dans un serveur FiveM sous ESX. Compatible avec Illama Keys Creator, il offre une intégration parfaite pour gérer les véhicules et distribuer les clés automatiquement lors du spawn.'
 author 'Illama'
 version '1.0.0'
 
