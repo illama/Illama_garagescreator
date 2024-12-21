@@ -1,0 +1,2 @@
+# Illama_garagescreator
+ Illama Garages Creator est un script ESX avancé pour FiveM permettant de créer, configurer et sauvegarder des garages personnalisés pour des jobs spécifiques. Il offre une interface intuitive et des fonctionnalités robustes pour définir les positions de garage et de spawn des véhicules, tout en gérant les permissions administratives et la synchronisation des données via une base de données MySQL.

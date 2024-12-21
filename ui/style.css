@@ -1,0 +1,167 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    margin: 0;
+    padding: 20px;
+    display: none;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: rgba(16, 16, 16, 0.95);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+    color: #4CAF50;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ddd;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.vehicle-list {
+    margin-bottom: 15px;
+}
+
+.vehicle-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.vehicle-item input {
+    flex: 1;
+}
+
+.vehicle-item button {
+    background-color: #f44336;
+}
+
+.vehicle-item button:hover {
+    background-color: #da190b;
+}
+
+.positions {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.position-info {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.save {
+    background-color: #4CAF50;
+}
+
+.cancel {
+    background-color: #666;
+}
+
+.grades-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 4px;
+}
+
+/* Ajoutez ces styles à votre fichier style.css existant */
+.grade-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.grade-input {
+    width: 120px;
+    padding: 8px;
+}
+
+.grades-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.grade-item {
+    background-color: rgba(76, 175, 80, 0.2);
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.grade-item button {
+    padding: 2px 6px;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.grade-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+}

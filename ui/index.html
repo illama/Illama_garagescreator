@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créateur de Garage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --border-color: #374151;
+            --input-bg: #2a2a2a;
+            --hover-color: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: var(--background-color);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #4a5568;
+        }
+        .text-muted {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .grade-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            width: 200px;
+        }
+
+        .grade-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grade-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.25rem;
+        }
+
+        .grade-tag button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .grade-tag button:hover {
+            background: none;
+            opacity: 0.8;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        #vehiclePlate {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .plate-display {
+            display: inline-block;
+            background-color: #ffeb3b;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin: 4px 0;
+        }
+
+        input[type="color"] {
+            padding: 0;
+            width: 50px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .grades-container {
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .grade-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .grades-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .grade-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grade-tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .vehicle-list {
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vehicle-item:last-child {
+            border-bottom: none;
+        }
+
+        .vehicle-colors {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .color-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .positions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .position-info {
+            background-color: var(--input-bg);
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        button.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        button.secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        button:hover {
+            background-color: var(--hover-color);
+        }
+
+        .vehicle-form {
+            display: none;
+            padding: 1rem;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            margin-top: 1rem;
+        }
+
+        .vehicle-form.active {
+            display: block;
+        }
+
+        .vehicle-form input,
+        .vehicle-form button {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Créateur de Garage</h2>
+        
+        <div class="form-group">
+            <label for="garageName">Nom du garage</label>
+            <input type="text" id="garageName" placeholder="Entrez le nom du garage">
+        </div>
+
+        <div class="form-group">
+            <label for="garageJob">Job (ID)</label>
+            <input type="text" id="garageJob" placeholder="police, ambulance, mechanic...">
+            <small class="text-muted">Laissez vide pour autoriser tout le monde</small>
+        </div>
+        
+        <div class="form-group">
+            <label>Grades autorisés</label>
+            <div class="grades-container">
+                <div class="grade-selector">
+                    <input type="number" 
+                           id="gradeInput" 
+                           placeholder="Entrez un numéro de grade" 
+                           min="0" 
+                           class="grade-input">
+                    <button class="primary" id="addGrade">Ajouter</button>
+                </div>
+                <small class="text-muted">Laissez vide pour autoriser tous les grades</small>
+                <div id="gradesList" class="grades-list">
+                    <!-- Les grades ajoutés apparaîtront ici -->
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Véhicules</label>
+            <div id="vehicleList" class="vehicle-list">
+                <!-- Les véhicules seront ajoutés ici dynamiquement -->
+            </div>
+            <button class="primary" id="showVehicleForm">Ajouter un véhicule</button>
+            
+            <div class="vehicle-form" id="vehicleForm">
+                <div class="form-group">
+                    <label for="vehicleModel">Modèle du véhicule</label>
+                    <input type="text" id="vehicleModel" placeholder="Exemple: police">
+                </div>
+                <div class="form-group">
+                    <label for="vehicleLabel">Nom d'affichage</label>
+                    <input type="text" id="vehicleLabel" placeholder="Exemple: Véhicule de police">
+                </div>
+                <div class="form-group">
+                    <label for="vehiclePlate">Plaque d'immatriculation</label>
+                    <input type="text" 
+                           id="vehiclePlate" 
+                           maxlength="8" 
+                           placeholder="Exemple: POLICE" 
+                           style="text-transform: uppercase;">
+                    <small class="text-muted">Maximum 8 caractères</small>
+                </div>
+                <div class="form-group">
+                    <label>Couleurs du véhicule</label>
+                    <div class="vehicle-colors">
+                        <div class="color-group">
+                            <label>Primaire:</label>
+                            <input type="color" id="primaryColor" value="#000000">
+                        </div>
+                        <div class="color-group">
+                            <label>Secondaire:</label>
+                            <input type="color" id="secondaryColor" value="#000000">
+                        </div>
+                    </div>
+                </div>
+                <button class="primary" id="addVehicle">Ajouter</button>
+                <button class="secondary" id="cancelVehicle">Annuler</button>
+            </div>
+        </div>
+
+        <div class="positions">
+            <div class="position-info" id="garagePosition">
+                <p>Position du garage: Non définie</p>
+                <button class="primary" id="setGaragePos">Définir position</button>
+            </div>
+
+            <div class="position-info" id="spawnPosition">
+                <p>Position du spawn: Non définie</p>
+                <button class="primary" id="setSpawnPos">Définir position</button>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="primary" id="saveGarage">Sauvegarder</button>
+            <button class="secondary" id="closeUI">Fermer</button>
+        </div>
+    </div>
+
+    <script>
+        let grades = new Set();
+        let vehicles = [];
+        let garagePos = null;
+        let spawnPos = null;
+        let availableJobs = {};
+
+        // Gestion des grades
+        document.getElementById('addGrade').addEventListener('click', function() {
+            const gradeInput = document.getElementById('gradeInput');
+            const grade = gradeInput.value.trim();
+            
+            if (grade === '') {
+                return;
+            }
+            
+            const gradeNum = parseInt(grade);
+            if (isNaN(gradeNum) || gradeNum < 0) {
+                alert('Veuillez entrer un numéro de grade valide (0 ou plus)');
+                return;
+            }
+            
+            if (!grades.has(gradeNum)) {
+                grades.add(gradeNum);
+                updateGradesList();
+                gradeInput.value = ''; // Réinitialiser l'input
+            }
+        });
+
+        function updateGradesList() {
+            const container = document.getElementById('gradesList');
+            container.innerHTML = '';
+            
+            Array.from(grades).sort((a, b) => a - b).forEach(grade => {
+                const gradeElement = document.createElement('div');
+                gradeElement.className = 'grade-tag';
+                gradeElement.innerHTML = `
+                    Grade ${grade}
+                    <button onclick="removeGrade(${grade})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(gradeElement);
+            });
+        }
+
+        function removeGrade(grade) {
+            grades.delete(grade);
+            updateGradesList();
+        }
+
+        // Gestion des véhicules
+        document.getElementById('showVehicleForm').addEventListener('click', function() {
+            document.getElementById('vehicleForm').classList.add('active');
+        });
+
+        document.getElementById('cancelVehicle').addEventListener('click', function() {
+            document.getElementById('vehicleForm').classList.remove('active');
+            resetVehicleForm();
+        });
+
+        document.getElementById('addVehicle').addEventListener('click', function() {
+            const model = document.getElementById('vehicleModel').value;
+            const label = document.getElementById('vehicleLabel').value;
+            const plate = document.getElementById('vehiclePlate').value.toUpperCase();
+            const primaryColor = document.getElementById('primaryColor').value;
+            const secondaryColor = document.getElementById('secondaryColor').value;
+
+            if (model && label) {
+                vehicles.push({
+                    model: model,
+                    label: label,
+                    plate: plate || '', // Si pas de plaque, chaîne vide
+                    colors: {
+                        primary: primaryColor,
+                        secondary: secondaryColor
+                    }
+                });
+                updateVehicleList();
+                resetVehicleForm();
+                document.getElementById('vehicleForm').classList.remove('active');
+            }
+        });
+
+        function updateVehicleList() {
+            const container = document.getElementById('vehicleList');
+            container.innerHTML = '';
+            
+            vehicles.forEach((vehicle, index) => {
+                const vehicleElement = document.createElement('div');
+                vehicleElement.className = 'vehicle-item';
+                vehicleElement.innerHTML = `
+                    <div>
+                        <strong>${vehicle.label}</strong> (${vehicle.model})
+                        ${vehicle.plate ? `<br><span class="plate-display">Plaque: ${vehicle.plate}</span>` : ''}
+                        <div class="vehicle-colors">
+                            <div class="color-group">
+                                <span>Primaire:</span>
+                                <input type="color" value="${vehicle.colors.primary}" disabled>
+                            </div>
+                            <div class="color-group">
+                                <span>Secondaire:</span>
+                                <input type="color" value="${vehicle.colors.secondary}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="removeVehicle(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(vehicleElement);
+            });
+        }
+
+        function removeVehicle(index) {
+            vehicles.splice(index, 1);
+            updateVehicleList();
+        }
+
+        function resetVehicleForm() {
+            document.getElementById('vehicleModel').value = '';
+            document.getElementById('vehicleLabel').value = '';
+            document.getElementById('vehiclePlate').value = '';
+            document.getElementById('primaryColor').value = '#000000';
+            document.getElementById('secondaryColor').value = '#000000';
+        }
+
+        // Gestion des positions
+        document.getElementById('setGaragePos').addEventListener('click', function() {
+            fetch(`https://${GetParentResourceName()}/requestPosition`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    type: 'garage'
+                })
+            });
+        });
+
+        document.getElementById('setSpawnPos').addEventListener('click', function() {
+            fetch(`https://${GetParentResourceName()}/requestPosition`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    type: 'spawn'
+                })
+            });
+        });
+
+        // Gestion de la sauvegarde
+        document.getElementById('saveGarage').addEventListener('click', function() {
+            if (!validateForm()) {
+                return;
+            }
+
+            // Désactiver le bouton pour éviter les doubles clics
+            const saveButton = document.getElementById('saveGarage');
+            saveButton.disabled = true;
+
+            const data = {
+                name: document.getElementById('garageName').value,
+                job: document.getElementById('garageJob').value.trim(),
+                grades: Array.from(grades),
+                vehicles: vehicles.map(vehicle => ({
+                    ...vehicle,
+                    colors: {
+                        primary: vehicle.colors.primary,
+                        secondary: vehicle.colors.secondary
+                    }
+                })),
+                garagePos: garagePos,
+                spawnPos: spawnPos
+            };
+
+            fetch(`https://${GetParentResourceName()}/saveGarage`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                // Fermer l'interface après la sauvegarde
+                document.body.style.display = 'none';
+                resetForm();
+                
+                // Envoyer l'événement de fermeture à FiveM
+                return fetch(`https://${GetParentResourceName()}/closeUI`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+            })
+            .finally(() => {
+                // Réactiver le bouton
+                saveButton.disabled = false;
+            });
+        });
+
+        // Gestion de la fermeture
+        document.getElementById('closeUI').addEventListener('click', function() {
+            // Masquer l'interface
+            document.body.style.display = 'none';
+            
+            // Réinitialiser le formulaire
+            resetForm();
+            
+            // Envoyer l'événement de fermeture à FiveM
+            fetch(`https://${GetParentResourceName()}/closeUI`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            });
+        });
+// Réception des messages du client
+window.addEventListener('message', function(event) {
+            const data = event.data;
+
+            if (data.type === 'openUI') {
+                document.body.style.display = 'flex';
+                if (data.jobs) {
+                    availableJobs = data.jobs;
+                    updateJobSelect();
+                }
+            } else if (data.type === 'hideUI') {
+                document.body.style.display = 'none';
+            } else if (data.type === 'showUI') {
+                document.body.style.display = 'flex';
+                if (data.positionType === 'garage') {
+                    garagePos = data.position;
+                    document.getElementById('garagePosition').children[0].textContent = 
+                        `Position du garage: X: ${data.position.x.toFixed(2)}, Y: ${data.position.y.toFixed(2)}, Z: ${data.position.z.toFixed(2)}`;
+                } else if (data.positionType === 'spawn') {
+                    spawnPos = data.position;
+                    document.getElementById('spawnPosition').children[0].textContent = 
+                        `Position du spawn: X: ${data.position.x.toFixed(2)}, Y: ${data.position.y.toFixed(2)}, Z: ${data.position.z.toFixed(2)}, Heading: ${data.position.heading.toFixed(2)}`;
+                }
+            }
+        });
+
+        // Fonction pour masquer l'interface au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.display = 'none';
+        });
+
+        // Gestion des touches clavier
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                fetch(`https://${GetParentResourceName()}/closeUI`, {
+                    method: 'POST'
+                });
+            }
+        });
+
+        // Fonctions utilitaires
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        // Fonction pour prévisualiser les couleurs
+        function updateColorPreview() {
+            const primaryColor = document.getElementById('primaryColor').value;
+            const secondaryColor = document.getElementById('secondaryColor').value;
+            
+            // Mise à jour des indicateurs visuels si nécessaire
+            document.querySelector('.primary-color-preview').style.backgroundColor = primaryColor;
+            document.querySelector('.secondary-color-preview').style.backgroundColor = secondaryColor;
+        }
+
+        // Ajout des écouteurs d'événements pour les sélecteurs de couleur
+        document.getElementById('primaryColor').addEventListener('input', updateColorPreview);
+        document.getElementById('secondaryColor').addEventListener('input', updateColorPreview);
+
+        // Fonction pour valider les données avant la sauvegarde
+        function validateForm() {
+            const garageName = document.getElementById('garageName').value;
+            if (!garageName) {
+                alert('Veuillez entrer un nom pour le garage');
+                return false;
+            }
+
+            if (vehicles.length === 0) {
+                alert('Veuillez ajouter au moins un véhicule');
+                return false;
+            }
+
+            if (!garagePos) {
+                alert('Veuillez définir la position du garage');
+                return false;
+            }
+
+            if (!spawnPos) {
+                alert('Veuillez définir la position de spawn');
+                return false;
+            }
+
+            return true;
+        }
+        // Fonction pour mettre à jour les grades disponibles en fonction du job sélectionné
+        function updateGradeSelect() {
+            const jobSelect = document.getElementById('garageJob');
+            const gradeSelect = document.getElementById('gradeSelect');
+            const selectedJob = jobSelect.value;
+            
+            gradeSelect.innerHTML = ''; // Vider les grades existants
+            
+            if (selectedJob && selectedJob !== 'all' && availableJobs[selectedJob]) {
+                availableJobs[selectedJob].grades.forEach(grade => {
+                    const option = document.createElement('option');
+                    option.value = grade.id;
+                    option.textContent = `${grade.label} - ${grade.id}`;
+                    gradeSelect.appendChild(option);
+                });
+                
+                // Activer le sélecteur de grades
+                gradeSelect.disabled = false;
+                document.getElementById('addGrade').disabled = false;
+            } else {
+                // Si "Tout le monde" est sélectionné, désactiver les grades
+                gradeSelect.disabled = true;
+                document.getElementById('addGrade').disabled = true;
+            }
+        }
+
+        // Modification du gestionnaire de sauvegarde pour inclure la validation
+        document.getElementById('saveGarage').addEventListener('click', function() {
+            if (!validateForm()) {
+                return;
+            }
+
+            const data = {
+                name: document.getElementById('garageName').value,
+                job: document.getElementById('garageJob').value,
+                grades: Array.from(grades),
+                vehicles: vehicles.map(vehicle => ({
+                    ...vehicle,
+                    colors: {
+                        primary: vehicle.colors.primary,
+                        secondary: vehicle.colors.secondary
+                    }
+                })),
+                garagePos: garagePos,
+                spawnPos: spawnPos
+            };
+
+            fetch(`https://${GetParentResourceName()}/saveGarage`, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).then(() => {
+                // Réinitialisation du formulaire après sauvegarde
+                resetForm();
+            });
+        });
+
+        // Fonction pour réinitialiser le formulaire
+        function resetForm() {
+            document.getElementById('garageName').value = '';
+            document.getElementById('garageJob').value = '';
+            document.getElementById('gradeInput').value = '';
+            grades.clear();
+            updateGradesList();
+            vehicles = [];
+            updateVehicleList();
+            garagePos = null;
+            spawnPos = null;
+            document.getElementById('garagePosition').children[0].textContent = 'Position du garage: Non définie';
+            document.getElementById('spawnPosition').children[0].textContent = 'Position du spawn: Non définie';
+        }
+
+        // Empêcher la propagation des clics sur le conteneur principal
+        document.querySelector('.container').addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+
+    </script>
+</body>
+</html>
