@@ -98,3 +98,76 @@ ESX.RegisterServerCallback('illama_garagescreator:getJobsAndGrades', function(so
         end)
     end)
 end)
+
+-- Configuration
+local githubUser = 'illama'
+local githubRepo = 'illama_garagescreator'
+
+-- Fonction pour récupérer la version locale depuis le fxmanifest
+local function GetCurrentVersion()
+    local resourceName = GetCurrentResourceName()
+    local manifest = LoadResourceFile(resourceName, 'fxmanifest.lua')
+    if not manifest then
+        return nil
+    end
+    
+    -- Chercher la ligne avec version
+    for line in manifest:gmatch("[^\r\n]+") do
+        local version = line:match("^version%s+['\"](.+)['\"]")
+        if version then
+            return version:gsub("%s+", "") -- Enlever les espaces
+        end
+    end
+    
+    return nil
+end
+
+-- Fonction pour vérifier la version
+local function CheckVersion()
+    local currentVersion = GetCurrentVersion()
+    if not currentVersion then
+        print('^1[illama_garagescreator] Impossible de lire la version dans le fxmanifest.lua^7')
+        return
+    end
+
+    -- Utiliser l'API GitHub pour récupérer la dernière release
+    PerformHttpRequest(
+        ('https://api.github.com/repos/%s/%s/releases/latest'):format(githubUser, githubRepo),
+        function(err, text, headers)
+            if err ~= 200 then
+                print('^1[illama_garagescreator] Impossible de vérifier la version sur GitHub^7')
+                return
+            end
+            
+            -- Parser la réponse JSON
+            local data = json.decode(text)
+            if not data or not data.tag_name then
+                print('^1[illama_billing] Erreur lors de la lecture de la version GitHub^7')
+                return
+            end
+            
+            local latestVersion = data.tag_name:gsub("^v", "") -- Enlever le 'v' si présent
+            
+            if latestVersion ~= currentVersion then
+                print('^3[illama_garagescreator] Une nouvelle version est disponible!^7')
+                print('^3[illama_garagescreator] Version actuelle: ^7' .. currentVersion)
+                print('^3[illama_garagescreator] Dernière version: ^7' .. latestVersion)
+                print('^3[illama_billing] Notes de mise à jour: ^7' .. (data.html_url or 'N/A'))
+                if data.body then
+                    print('^3[illama_garagescreator] Changements: \n^7' .. data.body)
+                end
+            else
+                print('^2[illama_garagescreator] Le script est à jour (v' .. currentVersion .. ')^7')
+            end
+        end,
+        'GET',
+        '',
+        {['User-Agent'] = 'FXServer-'..githubUser}
+    )
+end
+
+-- Vérifier la version au démarrage
+CreateThread(function()
+    Wait(5000) -- Attendre 5 secondes après le démarrage du serveur
+    CheckVersion()
+end)
