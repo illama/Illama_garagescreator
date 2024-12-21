@@ -1,4 +1,4 @@
-Illama Garages Creator est un outil puissant pour gérer les garages dans un serveur FiveM sous ESX. Il permet aux administrateurs de configurer des garages adaptés aux besoins de chaque job, avec des positions définies pour les garages et les spawns des véhicules.
+Illama Garages Creator est un outil puissant pour gérer les garages dans un serveur FiveM sous ESX. Compatible avec Illama Keys Creator, il offre une intégration parfaite pour gérer les véhicules et distribuer les clés automatiquement lors du spawn.
 Fonctionnalités Principales
 
     Interface Intuitive : Interface utilisateur NUI pour configurer et gérer facilement les garages.
@@ -9,8 +9,9 @@ Fonctionnalités Principales
     Support des Jobs et Grades :
         Intégration des jobs et grades directement depuis la base de données.
         Possibilité de lier des garages à des jobs spécifiques avec des grades définis.
-    Notifications Dynamiques : Notifications utilisateur pour confirmer les actions ou alerter en cas d'erreur.
-    Sauvegarde Sécurisée : Les données des garages sont sauvegardées dans une base de données MySQL, assurant une persistance complète.
+    Compatibilité avec Illama Keys Creator :
+        Distribution automatique des clés lors du spawn des véhicules depuis le garage.
+    Sauvegarde Sécurisée : Les données des garages sont sauvegardées dans une base de données MySQL.
 
 Installation
 
@@ -54,6 +55,7 @@ Prérequis
 
     ESX Legacy (ou compatible).
     MySQL-Async pour la gestion des bases de données.
+    Illama Keys Creator pour une gestion fluide des clés.
 
 Crédits
 
